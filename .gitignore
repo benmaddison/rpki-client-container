@@ -1,0 +1,5 @@
+.venv/
+out/
+cache/
+tals/
+.docker-image
