@@ -7,32 +7,31 @@ version 7.5 and above.
 
 The provided `Makefile` performs the following steps:
 
--   Build a docker image for `rpki-client` using a source tree patched with:
+- Create a `python3` venv in `./.venv` and install dependencies from
+  `requirements.txt`
+- Run the `gen-rpki-repos.py` script to output RPKI repositories to
+  `./cache/rsync`
+- Build and run `rsync` servers for each repository instance
+- Build a docker image for `rpki-client` using a source tree patched with:
 
     ``` diff
     diff --git a/src/usr.sbin/rpki-client/extern.h b/src/usr.sbin/rpki-client/extern.h
     index 8729863e..e2adb6eb 100644
     --- a/src/usr.sbin/rpki-client/extern.h
     +++ b/src/usr.sbin/rpki-client/extern.h
-    @@ -624,7 +624,7 @@ int	mkpath(const char *);
-     #define MAX_RSYNC_PROCESSES	16
+    @@ -624,7 +624,7 @@ int mkpath(const char *);
+     #define MAX_RSYNC_PROCESSES    16
 
      /* Maximum allowd repositories per tal */
-    -#define MAX_REPO_PER_TAL	1000
-    +#define MAX_REPO_PER_TAL	10
+    -#define MAX_REPO_PER_TAL   1000
+    +#define MAX_REPO_PER_TAL   10
 
      /* Timeout for repository synchronisation, in seconds */
-     #define MAX_REPO_TIMEOUT	(15 * 60)
+     #define MAX_REPO_TIMEOUT   (15 * 60)
     ```
 
--   Create a `python3` venv in `./.venv` and install dependencies from
-    `requirements.txt`
--   Run the `gen-rpki-repos.py` script to output RPKI repositories to
-    `./cache/rsync`
--   Copy the TA certificate into the place where `rpki-client` expects to find
-    it
--   Runs the built docker container with `-n` to validate the contents of the
-    local cache
+- Runs the built `rpki-client` docker container to fetch and validate the
+  published repo contents
 
 ## About
 
