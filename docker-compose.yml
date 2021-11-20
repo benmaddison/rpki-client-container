@@ -1,0 +1,133 @@
+version: "3.3"
+services:
+  rpki-client:
+    hostname: rpki-client.example.com
+    build:
+      context: .
+      args:
+        OPENBSD_GIT: https://github.com/benmaddison/rpki-client-openbsd.git
+        OPENBSD_COMMIT: tree-limits
+    volumes:
+      - "./out:/var/lib/rpki-client"
+      - "./tals:/etc/tals:ro"
+    networks:
+      - rpki-client-tree-limits
+    depends_on:
+      - rpki.example.net
+      - x.example.net
+      - xx0.example.net
+      - xx1.example.net
+      - xx2.example.net
+      - xx3.example.net
+      - xx4.example.net
+      - xx5.example.net
+      - xx6.example.net
+      - xx7.example.net
+      - xx8.example.net
+      - xx9.example.net
+      - y.example.net
+      - yy.example.net
+    environment:
+      ONESHOT: "true"
+    command: "-vv"
+  rpki.example.net:
+    hostname: rpki.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/rpki.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  x.example.net:
+    hostname: x.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/x.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  xx0.example.net:
+    hostname: xx0.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/xx0.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  xx1.example.net:
+    hostname: xx1.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/xx1.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  xx2.example.net:
+    hostname: xx2.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/xx2.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  xx3.example.net:
+    hostname: xx3.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/xx3.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  xx4.example.net:
+    hostname: xx4.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/xx4.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  xx5.example.net:
+    hostname: xx5.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/xx5.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  xx6.example.net:
+    hostname: xx6.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/xx6.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  xx7.example.net:
+    hostname: xx7.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/xx7.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  xx8.example.net:
+    hostname: xx8.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/xx8.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  xx9.example.net:
+    hostname: xx9.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/xx9.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  y.example.net:
+    hostname: y.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/y.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+  yy.example.net:
+    hostname: yy.example.net
+    build: rsync
+    volumes:
+      - "./cache/rsync/yy.example.net/rpki:/root/data:ro"
+    networks:
+      - rpki-client-tree-limits
+networks:
+  rpki-client-tree-limits:
+    driver: bridge
