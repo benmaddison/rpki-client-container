@@ -37,7 +37,7 @@ ARG PORTABLE_COMMIT
 ARG OPENBSD_GIT
 ARG OPENBSD_COMMIT
 
-COPY rpki-client.pub entrypoint.sh healthcheck.sh /
+COPY rpki-client.pub entrypoint.sh healthcheck.sh rsync-wrapper.sh /
 RUN set -x && \
   chmod +x /entrypoint.sh /healthcheck.sh
 

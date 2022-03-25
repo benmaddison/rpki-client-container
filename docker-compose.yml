@@ -29,7 +29,7 @@ services:
       - yy.example.net
     environment:
       ONESHOT: "true"
-    command: "-vv"
+    command: "-vvj -e /rsync-wrapper.sh"
   rpki.example.net:
     hostname: rpki.example.net
     build: rsync
